@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<url>
+    <node key="getWeather" expires="300" netType="get" url="http://www.weather.com.cn/data/cityinfo/101010100.html"/>
+    <node key="sh601006" expires="300" netType="get" url="http://hq.sinajs.cn/list=sh601006"/>
+    <node key="getWeatherRetrofit" expires="300" netType="get" url="http://wthrcdn.etouch.cn/weather_mini"/>
+</url>
