@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -27,7 +28,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public ImageAdapter(List<String> list, Context context){
         this.list = list;
         this.context = context;
-        options = new RequestOptions().centerCrop().placeholder(R.drawable.loading).error(R.drawable.loadfail).priority(Priority.HIGH).diskCacheStrategy(DiskCacheStrategy.ALL);
     }
 
     @Override
@@ -39,7 +39,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Glide.with(context).load(list.get(position)).apply(options).transition(new DrawableTransitionOptions().dontTransition()) .into(holder.iv);
+       Glide.with(context).load(list.get(position)).into(holder.iv);
+       // holder.iv.setImageDrawable(context.getResources().getDrawable(R.drawable.loading));
     }
 
     @Override
@@ -51,7 +52,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         public ImageView iv;
         public ViewHolder(View itemView) {
             super(itemView);
-            iv = itemView.findViewById(R.id.iv_image_glide);
+            iv = itemView.findViewById(R.id.iv_image_item);
         }
     }
 }
