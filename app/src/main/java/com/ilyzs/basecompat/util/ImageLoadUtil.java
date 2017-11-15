@@ -48,7 +48,7 @@ public class ImageLoadUtil {
     }
 
     public  void loadImage(Context context, String url, ImageView imageView){
-        loadImageByPicasso(context, url, imageView);
+        loadImageByGlide(context, url, imageView);
     }
 
     public void loadImageHasListener(Context context, String url, ResultListener resultListener){

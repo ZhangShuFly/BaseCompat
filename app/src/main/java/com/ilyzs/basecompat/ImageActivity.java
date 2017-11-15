@@ -28,17 +28,21 @@ public class ImageActivity extends AppBaseActivity {
     @Override
     public void initPara() {
         list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
+        list.add("http://pic23.photophoto.cn/20120417/0017030514645955_b.jpg");
+        list.add("http://pic26.photophoto.cn/20130312/0037037526572944_b.jpg");
         list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
+        list.add("http://pic23.photophoto.cn/20120417/0017030514645955_b.jpg");
+        list.add("http://pic26.photophoto.cn/20130312/0037037526572944_b.jpg");
         list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
+        list.add("http://pic23.photophoto.cn/20120417/0017030514645955_b.jpg");
+        list.add("http://pic26.photophoto.cn/20130312/0037037526572944_b.jpg");
         list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
+        list.add("http://pic23.photophoto.cn/20120417/0017030514645955_b.jpg");
+        list.add("http://pic26.photophoto.cn/20130312/0037037526572944_b.jpg");
         list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
-        list.add("http://pic69.nipic.com/file/20150609/9252150_174125118561_2.jpg");
+        list.add("http://pic23.photophoto.cn/20120417/0017030514645955_b.jpg");
+        list.add("http://pic26.photophoto.cn/20130312/0037037526572944_b.jpg");
+
     }
 
     @Override
