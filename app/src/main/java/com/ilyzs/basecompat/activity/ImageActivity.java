@@ -1,4 +1,4 @@
-package com.ilyzs.basecompat;
+package com.ilyzs.basecompat.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
+import com.ilyzs.basecompat.R;
 import com.ilyzs.basecompat.adapter.ImageAdapter;
 import com.ilyzs.basecompat.util.ImageLoadUtil;
 import com.ilyzs.libnetwork.AppBaseActivity;
