@@ -12,7 +12,7 @@ import com.ilyzs.libnetwork.AppBaseActivity;
 
 public class MainActivity extends AppBaseActivity {
 
-    private Button glideBtn,leakCanaryBtn,blockCanaryBtn;
+    private Button glideBtn,leakCanaryBtn,blockCanaryBtn,jsonBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class MainActivity extends AppBaseActivity {
         glideBtn = (Button) findViewById(R.id.btn_main_glide);
         leakCanaryBtn = (Button) findViewById(R.id.btn_main_LeakCanary);
         blockCanaryBtn = (Button)findViewById(R.id.btn_main_BlockCanary);
+        jsonBtn = (Button) findViewById(R.id.btn_main_json);
 
         glideBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +54,14 @@ public class MainActivity extends AppBaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BlockCanaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        jsonBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, JsonActivity.class);
                 startActivity(intent);
             }
         });

@@ -33,4 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/blackcanary"/>
+
+    <Button
+        android:id="@+id/btn_main_json"
+        android:layout_below="@id/btn_main_BlockCanary"
+        android:layout_width="match_parent"
+        android:text="Json"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

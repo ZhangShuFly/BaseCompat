@@ -3,4 +3,6 @@
     <string name="glide">glide</string>
     <string name="leakcanary">leakcanary</string>
     <string name="blackcanary">blackcanary</string>
+    <string name="jsontobean">JsonToBean</string>
+    <string name="beanTojson">BeanToJson</string>
 </resources>

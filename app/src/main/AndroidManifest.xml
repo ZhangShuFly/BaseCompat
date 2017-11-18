@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".CompatBaseApplication"
@@ -23,7 +23,8 @@
         </activity>
         <activity android:name=".activity.ImageActivity" />
         <activity android:name=".activity.LeakCanaryActivity" />
-        <activity android:name=".activity.BlockCanaryActivity"></activity>
+        <activity android:name=".activity.BlockCanaryActivity" />
+        <activity android:name=".activity.JsonActivity"></activity>
     </application>
 
 </manifest>
