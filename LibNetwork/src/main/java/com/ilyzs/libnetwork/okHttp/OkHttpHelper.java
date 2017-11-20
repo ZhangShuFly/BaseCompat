@@ -35,11 +35,11 @@ public class OkHttpHelper {
         okHttpClient = new OkHttpClient();
         okHttpClient.newBuilder().connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS);
         handler = new Handler(Looper.getMainLooper());
-   }
+    }
 
-    private static OkHttpHelper getInstance(){
-        synchronized (OkHttpHelper.class){
-            if(null == okHttpHelper){
+    private static OkHttpHelper getInstance() {
+        synchronized (OkHttpHelper.class) {
+            if (null == okHttpHelper) {
                 okHttpHelper = new OkHttpHelper();
             }
         }
@@ -51,35 +51,39 @@ public class OkHttpHelper {
      */
     public static void doHttpGet(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, RequestCallback callback) {
         String url = urlData.getUrl();
-        getInstance().inner_doHttpGet(rmi,url,rpList,callback);
+        getInstance().inner_doHttpGet(rmi, url, rpList, callback);
     }
 
     /**
      * 异步请求post
      */
-    public static void doHttpPost(RequestManagerInterface rmi,URLData urlData, List<RequestParameter> rpList, RequestCallback callback) {
+    public static void doHttpPost(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, RequestCallback callback) {
         String url = urlData.getUrl();
-        getInstance().inner_doHttpPost(rmi,url,rpList,callback);
+        getInstance().inner_doHttpPost(rmi, url, rpList, callback);
     }
 
-    private void inner_doHttpGet(RequestManagerInterface rmi,String url, List<RequestParameter> rpList, final RequestCallback callback) {
-        url = urlJoinParams(url,rpList);
+    private void inner_doHttpGet(RequestManagerInterface rmi, String url, List<RequestParameter> rpList, final RequestCallback callback) {
+        url = urlJoinParams(url, rpList);
         final Request request = new Request.Builder().url(url).build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue( getResponseCallback(callback));
-
-        RequestManagerOkHttpImpl rmoi = (RequestManagerOkHttpImpl)rmi;
-        rmoi.addRequestQuneue(call);
-    }
-
-    private void inner_doHttpPost(RequestManagerInterface rmi,String url, List<RequestParameter> rpList, final RequestCallback callback) {
-        RequestBody requestBody = getRequestBody(rpList);
-        final  Request request = new Request.Builder().url(url).post(requestBody).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(getResponseCallback(callback));
 
-        RequestManagerOkHttpImpl rmoi = (RequestManagerOkHttpImpl)rmi;
-        rmoi.addRequestQuneue(call);
+        if (null != rmi) {
+            RequestManagerOkHttpImpl rmoi = (RequestManagerOkHttpImpl) rmi;
+            rmoi.addRequestQuneue(call);
+        }
+    }
+
+    private void inner_doHttpPost(RequestManagerInterface rmi, String url, List<RequestParameter> rpList, final RequestCallback callback) {
+        RequestBody requestBody = getRequestBody(rpList);
+        final Request request = new Request.Builder().url(url).post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(getResponseCallback(callback));
+
+        if (null != rmi) {
+            RequestManagerOkHttpImpl rmoi = (RequestManagerOkHttpImpl) rmi;
+            rmoi.addRequestQuneue(call);
+        }
     }
 
     @NonNull
@@ -90,7 +94,7 @@ public class OkHttpHelper {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(null!=callback)
+                        if (null != callback)
                             callback.onFail(e.getMessage());
                     }
                 });
@@ -119,15 +123,15 @@ public class OkHttpHelper {
     }
 
 
-    private String urlJoinParams(String url,List<RequestParameter> rpList){
-       StringBuilder urlSb = new StringBuilder(url);
+    private String urlJoinParams(String url, List<RequestParameter> rpList) {
+        StringBuilder urlSb = new StringBuilder(url);
         boolean isFirst = true;
-        if(null!=rpList){
+        if (null != rpList) {
             for (RequestParameter rp : rpList) {
-                if(null!=rp.getValue() && null!=rp.getName()){
-                    if(isFirst && !url.endsWith("?")){
+                if (null != rp.getValue() && null != rp.getName()) {
+                    if (isFirst && !url.endsWith("?")) {
                         urlSb.append("?");
-                    }else{
+                    } else {
                         urlSb.append("&");
                     }
                     urlSb.append(rp.getName());
@@ -136,16 +140,16 @@ public class OkHttpHelper {
                 }
             }
         }
-        return  urlSb.toString();
+        return urlSb.toString();
     }
 
     @NonNull
     private RequestBody getRequestBody(List<RequestParameter> rpList) {
         FormBody.Builder builder = new FormBody.Builder();
-        if(null!=rpList && !rpList.isEmpty()){
+        if (null != rpList && !rpList.isEmpty()) {
             for (RequestParameter rp : rpList) {
-                if(null!=rp.getName()){
-                    builder.add(rp.getName(),null!=rp.getValue()?rp.getValue():"");
+                if (null != rp.getName()) {
+                    builder.add(rp.getName(), null != rp.getValue() ? rp.getValue() : "");
                 }
             }
         }

@@ -9,13 +9,14 @@ import android.widget.ImageView;
 
 import com.ilyzs.basecompat.R;
 import com.ilyzs.basecompat.adapter.ImageAdapter;
+import com.ilyzs.basecompat.base.CompatBaseActivity;
 import com.ilyzs.basecompat.util.ImageLoadUtil;
 import com.ilyzs.libnetwork.AppBaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageActivity extends AppBaseActivity {
+public class ImageActivity extends CompatBaseActivity {
 
     private ImageView imageIv;
     private List<String> list = new ArrayList<>();

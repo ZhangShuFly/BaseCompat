@@ -7,12 +7,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ilyzs.basecompat.R;
+import com.ilyzs.basecompat.base.CompatBaseActivity;
 import com.ilyzs.basecompat.bean.AddressBean;
 import com.ilyzs.basecompat.bean.CommonJsonBean;
 import com.ilyzs.basecompat.util.JsonUtil;
 import com.ilyzs.libnetwork.AppBaseActivity;
 
-public class JsonActivity extends AppBaseActivity {
+public class JsonActivity extends CompatBaseActivity {
 
     private Button bTojBtn,jTobBtn;
     private TextView inputTv, outputTv;

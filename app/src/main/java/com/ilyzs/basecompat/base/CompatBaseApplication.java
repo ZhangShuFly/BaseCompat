@@ -1,4 +1,4 @@
-package com.ilyzs.basecompat;
+package com.ilyzs.basecompat.base;
 
 import android.app.Application;
 
@@ -11,12 +11,19 @@ import com.squareup.leakcanary.LeakCanary;
  */
 
 public class CompatBaseApplication extends Application {
+    private static CompatBaseApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
         BlockCanary.install(this,new CompatBaseBlockCanaryContext()).start();
 
-
+        instance = this;
     }
+
+    public static Application getInstance(){
+        return instance;
+    }
+
 }

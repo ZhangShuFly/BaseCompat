@@ -1,4 +1,4 @@
-package com.ilyzs.basecompat.Gson;
+package com.ilyzs.basecompat.gson;
 
 import com.google.gson.Gson;
 import com.ilyzs.basecompat.bean.CommonJsonBean;

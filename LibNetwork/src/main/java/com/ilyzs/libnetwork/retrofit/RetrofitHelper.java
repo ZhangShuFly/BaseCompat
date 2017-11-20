@@ -40,14 +40,15 @@ public class RetrofitHelper {
     private static RetrofitHelper retrofitHelper;
     private Retrofit retrofit;
     private static String baseUrl = "http://wthrcdn.etouch.cn/";
-    private RetrofitHelper(URLData urlData){
+
+    private RetrofitHelper(URLData urlData) {
         Gson gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create(gson)).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
     }
 
-    private static RetrofitHelper getInstance(final  URLData urlData){
-        synchronized (RetrofitHelper.class){
-            if(null==retrofitHelper){
+    private static RetrofitHelper getInstance(final URLData urlData) {
+        synchronized (RetrofitHelper.class) {
+            if (null == retrofitHelper) {
                 retrofitHelper = new RetrofitHelper(urlData);
             }
         }
@@ -55,18 +56,18 @@ public class RetrofitHelper {
     }
 
     public static void doHttpGet(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, RequestCallback callback) {
-        RetrofitHelper instance =  getInstance(urlData);
-        if(null!=instance)
-            instance.inner_doHttpGet(rmi,urlData,rpList,callback);
+        RetrofitHelper instance = getInstance(urlData);
+        if (null != instance)
+            instance.inner_doHttpGet(rmi, urlData, rpList, callback);
     }
 
     public static void doHttpPost(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, RequestCallback callback) {
-        RetrofitHelper instance =  getInstance(urlData);
-        if(null!=instance)
-            instance.inner_doHttpPost(rmi,urlData,rpList,callback);
+        RetrofitHelper instance = getInstance(urlData);
+        if (null != instance)
+            instance.inner_doHttpPost(rmi, urlData, rpList, callback);
     }
 
-    public  void uploadFile(RequestManagerInterface rmi, URLData urlData,List<RequestParameter> rpList,RequestCallback callback){
+    public void uploadFile(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, RequestCallback callback) {
         RetrofitUrlApi urlApi = retrofit.create(RetrofitUrlApi.class);
         String url = urlData.getUrl();
         File file = new File(Environment.getExternalStorageDirectory(), "ic_launcher.png");
@@ -77,32 +78,39 @@ public class RetrofitHelper {
     private void inner_doHttpGet(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, final RequestCallback callback) {
         RetrofitUrlApi urlApi = retrofit.create(RetrofitUrlApi.class);
         String url = urlData.getUrl();
-        Observable observable =  urlApi.getCommonByUrl(url,parseParameter(rpList));
+        Observable observable = urlApi.getCommonByUrl(url, parseParameter(rpList));
 
         RObserver observer = new RObserver(callback);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-        RequestManagerRetrofitImpl rmoi = (RequestManagerRetrofitImpl)rmi;
-        rmoi.addRequestQuneue(observer.disposable);
+
+        if (null != rmi) {
+            RequestManagerRetrofitImpl rmoi = (RequestManagerRetrofitImpl) rmi;
+            rmoi.addRequestQuneue(observer.disposable);
+        }
     }
 
 
     private void inner_doHttpPost(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, final RequestCallback callback) {
         RetrofitUrlApi urlApi = retrofit.create(RetrofitUrlApi.class);
         String url = urlData.getUrl();
-        Observable observable =  urlApi.postCommonByUrl(url,parseParameter(rpList));
+        Observable observable = urlApi.postCommonByUrl(url, parseParameter(rpList));
 
         RObserver observer = new RObserver(callback);
-        observable.subscribeOn(io.reactivex.schedulers.Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
-        RequestManagerRetrofitImpl rmoi = (RequestManagerRetrofitImpl)rmi;
-        rmoi.addRequestQuneue(observer.disposable);
+        observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+
+        if (null != rmi) {
+            RequestManagerRetrofitImpl rmoi = (RequestManagerRetrofitImpl) rmi;
+            rmoi.addRequestQuneue(observer.disposable);
+        }
     }
 
     @NonNull
+    @Deprecated
     private Callback<ResponseBody> getReponseCallback(final RequestCallback callback) {
         return new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(null!=callback)
+                if (null != callback)
                     try {
                         callback.onSuccess(response.body().string());
                     } catch (IOException e) {
@@ -112,18 +120,18 @@ public class RetrofitHelper {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                if(null!=callback)
+                if (null != callback)
                     callback.onFail(t.getMessage());
             }
         };
     }
 
-    private Map<String,Object> parseParameter(List<RequestParameter> rpList) {
+    private Map<String, Object> parseParameter(List<RequestParameter> rpList) {
         Map map = new HashMap();
-        if(null!=rpList && !rpList.isEmpty()){
+        if (null != rpList && !rpList.isEmpty()) {
             for (RequestParameter rp : rpList) {
-                if(null!=rp.getValue() && null!=rp.getName()){
-                    map.put(rp.getName(),rp.getValue());
+                if (null != rp.getValue() && null != rp.getName()) {
+                    map.put(rp.getName(), rp.getValue());
                 }
             }
         }
@@ -134,7 +142,7 @@ public class RetrofitHelper {
         public Disposable disposable;
         private RequestCallback callback;
 
-        public   RObserver (RequestCallback callback){
+        public RObserver(RequestCallback callback) {
             this.callback = callback;
         }
 

@@ -10,6 +10,8 @@ import com.ilyzs.libnetwork.util.ConfigUtil;
 import com.ilyzs.libnetwork.util.HttpUtil;
 import com.ilyzs.libnetwork.util.RequestCallback;
 import com.ilyzs.libnetwork.util.RequestParameter;
+import com.ilyzs.libnetwork.util.URLData;
+import com.ilyzs.libnetwork.util.URLDataManager;
 import com.ilyzs.libnetwork.volley.RequestManagerVolleyImpl;
 
 import java.util.ArrayList;
@@ -44,7 +46,8 @@ public class MainActivity extends AppBaseActivity {
             public void onClick(View view) {
                 changeNetType("Volley");
                 waitDialogShow();
-                HttpUtil.doHttp(rmi,MainActivity.this, "getWeather", null, new RequestCallback() {
+                URLData urlData = URLDataManager.findURL(MainActivity.this,"getWeather");
+                HttpUtil.doHttp(rmi,urlData, null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
                         waitDialogDismiss();
@@ -65,7 +68,8 @@ public class MainActivity extends AppBaseActivity {
             public void onClick(View view) {
                 changeNetType("OKHttp");
                 waitDialogShow();
-                HttpUtil.doHttp(rmi,MainActivity.this, "sh601006", null, new RequestCallback() {
+                URLData urlData = URLDataManager.findURL(MainActivity.this,"sh601006");
+                HttpUtil.doHttp(rmi,urlData, null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
                         waitDialogDismiss();
@@ -92,7 +96,9 @@ public class MainActivity extends AppBaseActivity {
                 parameter.setValue("101010100");
                 parameterList.add(parameter);
 
-                HttpUtil.doHttp(rmi,MainActivity.this, "getWeatherRetrofit", parameterList, new RequestCallback() {
+                URLData urlData = URLDataManager.findURL(MainActivity.this,"getWeatherRetrofit");
+
+                HttpUtil.doHttp(rmi,urlData, parameterList, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
                         waitDialogDismiss();

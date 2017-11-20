@@ -13,9 +13,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ilyzs.basecompat.R;
+import com.ilyzs.basecompat.base.CompatBaseActivity;
 import com.ilyzs.libnetwork.AppBaseActivity;
 
-public class BlockCanaryActivity extends AppBaseActivity {
+public class BlockCanaryActivity extends CompatBaseActivity {
 
     private Button bcTestBtn;
 

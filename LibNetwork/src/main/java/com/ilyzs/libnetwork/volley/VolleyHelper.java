@@ -28,41 +28,52 @@ import retrofit2.http.Url;
  */
 
 public class VolleyHelper {
-    private Context context;
 
-    public VolleyHelper(Context context) {
-        this.context = context;
+
+    private static VolleyHelper instance;
+
+    private static VolleyHelper getInstance() {
+        if (null == instance) {
+            synchronized (VolleyHelper.class) {
+                instance = new VolleyHelper();
+            }
+        }
+        return instance;
     }
 
-    public void doHttpGetJsonObject(RequestManagerInterface rmi,URLData urlData, List<RequestParameter> rpList, final RequestCallback callback) {
+    public static void doHttpGetJsonObject(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, final RequestCallback callback) {
         String url = urlData.getUrl();
-        Response.Listener successLister = getSuccessListener(callback);
-        Response.ErrorListener errorListener = getErrorListener(callback);
-        JsonObjectRequestVolley jorv = new JsonObjectRequestVolley(url, parseParameter(rpList), successLister, errorListener);
+        Response.Listener successLister = getInstance().getSuccessListener(callback);
+        Response.ErrorListener errorListener = getInstance().getErrorListener(callback);
+        JsonObjectRequestVolley jorv = new JsonObjectRequestVolley(url, getInstance().parseParameter(rpList), successLister, errorListener);
 
-        RequestManagerVolleyImpl rmvi = (RequestManagerVolleyImpl) rmi;
-        rmvi.addRequestQuneue(jorv);
+        if (null != rmi) {
+            RequestManagerVolleyImpl rmvi = (RequestManagerVolleyImpl) rmi;
+            rmvi.addRequestQuneue(jorv);
+        }
     }
 
-    public void doHttpPostJsonObject(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, final RequestCallback callback) {
+    public static void doHttpPostJsonObject(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> rpList, final RequestCallback callback) {
         String url = urlData.getUrl();
-        Response.Listener successLister = getSuccessListener(callback);
-        Response.ErrorListener errorListener = getErrorListener(callback);
-        JsonObjectRequestVolley jorv = new JsonObjectRequestVolley(Request.Method.POST,url, parseParameter(rpList), successLister, errorListener);
+        Response.Listener successLister = getInstance().getSuccessListener(callback);
+        Response.ErrorListener errorListener = getInstance().getErrorListener(callback);
+        JsonObjectRequestVolley jorv = new JsonObjectRequestVolley(Request.Method.POST, url, getInstance().parseParameter(rpList), successLister, errorListener);
 
-        RequestManagerVolleyImpl rmvi = (RequestManagerVolleyImpl) rmi;
-        rmvi.addRequestQuneue(jorv);
+        if (null != rmi) {
+            RequestManagerVolleyImpl rmvi = (RequestManagerVolleyImpl) rmi;
+            rmvi.addRequestQuneue(jorv);
+        }
     }
 
     @NonNull
     private Response.ErrorListener getErrorListener(final RequestCallback callback) {
         return new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if(null!=callback)
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (null != callback)
                     callback.onFail(error.getMessage());
-                }
-            };
+            }
+        };
     }
 
     @NonNull
@@ -70,18 +81,19 @@ public class VolleyHelper {
         return new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                if(null!=callback)
-                callback.onSuccess(response.toString());
+                if (null != callback)
+                    callback.onSuccess(response.toString());
             }
         };
     }
+
     private JSONObject parseParameter(List<RequestParameter> rpList) {
         JSONObject jo = new JSONObject();
-        if(null!=rpList && !rpList.isEmpty()){
+        if (null != rpList && !rpList.isEmpty()) {
             for (RequestParameter rp : rpList) {
-                if(null!=rp.getValue() && null!=rp.getName()){
+                if (null != rp.getValue() && null != rp.getName()) {
                     try {
-                        jo.put(rp.getName(),rp.getValue());
+                        jo.put(rp.getName(), rp.getValue());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -8,6 +8,8 @@ import com.ilyzs.libnetwork.volley.VolleyHelper;
 
 import java.util.List;
 
+import retrofit2.http.Url;
+
 /**
  * 网络请求工具类
  * Created by zs
@@ -26,18 +28,17 @@ public class HttpUtil {
         return httpUtil;
     }
 
-    public static void doHttp(RequestManagerInterface rmi,Context context, String urlKey, List<RequestParameter> parameter, RequestCallback callback){
+    public static void doHttp(RequestManagerInterface rmi,URLData urlData, List<RequestParameter> parameter, RequestCallback callback){
         if("OKHttp".equals(ConfigUtil.netType)){
-            getInstance().doOkHttpHttp(rmi,context,urlKey,parameter,callback);
+            getInstance().doOkHttpHttp(rmi,urlData,parameter,callback);
         }else if("Retrofit".equals(ConfigUtil.netType)){
-            getInstance().doRetrofitHttp(rmi,context,urlKey,parameter,callback);
+            getInstance().doRetrofitHttp(rmi,urlData,parameter,callback);
         }  else{
-            getInstance().doVolleyHttp(rmi,context,urlKey,parameter,callback);
+            getInstance().doVolleyHttp(rmi,urlData,parameter,callback);
         }
     }
 
-    private void doRetrofitHttp(RequestManagerInterface rmi,Context context, String urlKey, List<RequestParameter> parameter, RequestCallback callback){
-        URLData urlData = URLDataManager.findURL(context,urlKey);
+    private void doRetrofitHttp(RequestManagerInterface rmi,URLData urlData, List<RequestParameter> parameter, RequestCallback callback){
         if("post".equals(urlData.getNetType())){
             RetrofitHelper.doHttpPost(rmi,urlData,parameter,callback);
         }else{
@@ -45,17 +46,15 @@ public class HttpUtil {
         }
     }
 
-    private void doVolleyHttp(RequestManagerInterface rmi,Context context, String urlKey, List<RequestParameter> parameter, RequestCallback callback){
-        URLData urlData = URLDataManager.findURL(context,urlKey);
+    private void doVolleyHttp(RequestManagerInterface rmi,URLData urlData, List<RequestParameter> parameter, RequestCallback callback){
         if("post".equals(urlData.getNetType())){
-            new VolleyHelper(context).doHttpPostJsonObject(rmi,urlData,parameter,callback);
+            new VolleyHelper().doHttpPostJsonObject(rmi,urlData,parameter,callback);
         }else{
-            new VolleyHelper(context).doHttpGetJsonObject(rmi,urlData,parameter,callback);
+            new VolleyHelper().doHttpGetJsonObject(rmi,urlData,parameter,callback);
         }
     }
 
-    private void doOkHttpHttp(RequestManagerInterface rmi,Context context, String urlKey, List<RequestParameter> parameter, RequestCallback callback){
-        URLData urlData = URLDataManager.findURL(context,urlKey);
+    private void doOkHttpHttp(RequestManagerInterface rmi, URLData urlData, List<RequestParameter> parameter, RequestCallback callback){
         if("post".equals(urlData.getNetType())){
             OkHttpHelper.doHttpPost(rmi,urlData,parameter,callback);
         }else{

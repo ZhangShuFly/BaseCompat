@@ -4,9 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ilyzs.basecompat.R;
+import com.ilyzs.basecompat.base.CompatBaseActivity;
 import com.ilyzs.basecompat.util.LeakCanaryTest;
 
-public class LeakCanaryActivity extends AppCompatActivity {
+public class LeakCanaryActivity extends CompatBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

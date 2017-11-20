@@ -1,4 +1,4 @@
-package com.ilyzs.basecompat.Gson;
+package com.ilyzs.basecompat.gson;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

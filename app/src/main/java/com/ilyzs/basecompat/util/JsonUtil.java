@@ -1,7 +1,6 @@
 package com.ilyzs.basecompat.util;
 
-import com.ilyzs.basecompat.Gson.GsonUtil;
-import com.ilyzs.basecompat.bean.AddressBean;
+import com.ilyzs.basecompat.gson.GsonUtil;
 import com.ilyzs.basecompat.bean.CommonJsonBean;
 
 /**
