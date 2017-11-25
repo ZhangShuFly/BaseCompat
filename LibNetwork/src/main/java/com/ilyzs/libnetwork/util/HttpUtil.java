@@ -38,6 +38,17 @@ public class HttpUtil {
         }
     }
 
+    public static void doHttp(URLData urlData, List<RequestParameter> parameter, RequestCallback callback){
+        if("OKHttp".equals(ConfigUtil.netType)){
+            getInstance().doOkHttpHttp(null,urlData,parameter,callback);
+        }else if("Retrofit".equals(ConfigUtil.netType)){
+            getInstance().doRetrofitHttp(null,urlData,parameter,callback);
+        }  else{
+            getInstance().doVolleyHttp(null,urlData,parameter,callback);
+        }
+    }
+
+
     private void doRetrofitHttp(RequestManagerInterface rmi,URLData urlData, List<RequestParameter> parameter, RequestCallback callback){
         if("post".equals(urlData.getNetType())){
             RetrofitHelper.doHttpPost(rmi,urlData,parameter,callback);

@@ -2,6 +2,7 @@ package com.ilyzs.basecompat.gson;
 
 import com.google.gson.Gson;
 import com.ilyzs.basecompat.bean.CommonJsonBean;
+import com.ilyzs.basecompat.gson.ParameterizedTypeImpl;
 
 import java.lang.reflect.Type;
 

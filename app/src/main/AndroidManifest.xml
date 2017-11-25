@@ -24,7 +24,8 @@
         <activity android:name=".activity.ImageActivity" />
         <activity android:name=".activity.LeakCanaryActivity" />
         <activity android:name=".activity.BlockCanaryActivity" />
-        <activity android:name=".activity.JsonActivity"></activity>
+        <activity android:name=".activity.JsonActivity" />
+        <activity android:name=".activity.UserProfileActivity"></activity>
     </application>
 
 </manifest>

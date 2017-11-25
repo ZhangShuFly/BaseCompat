@@ -11,9 +11,33 @@ import android.arch.persistence.room.PrimaryKey;
 public class User {
 
     @PrimaryKey
-    public  int id;
+    private   int id;
 
-    public  String name;
+    private   String name;
 
-    public  Integer age;
+    private   Integer age;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

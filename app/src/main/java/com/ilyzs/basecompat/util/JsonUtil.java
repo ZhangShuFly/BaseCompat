@@ -24,11 +24,11 @@ public class JsonUtil {
         return instance;
     }
 
-    public  <T> CommonJsonBean<T> jsonToBean(String jsongString, Class<T> clazz){
+    public  <T> CommonJsonBean<T> jsonToCommonBean(String jsongString, Class<T> clazz){
         return GsonUtil.getInstance().jsonToBean(jsongString,clazz);
     }
 
-    public String beanToJson(CommonJsonBean bean,Class clazz){
+    public String commonBeanToJson(CommonJsonBean bean,Class clazz){
         return GsonUtil.getInstance().beanToJson(bean,clazz);
     }
 }

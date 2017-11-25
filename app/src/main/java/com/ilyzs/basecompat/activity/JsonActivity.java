@@ -31,10 +31,10 @@ public class JsonActivity extends CompatBaseActivity {
     @Override
     public void loadView() {
         setContentView(R.layout.activity_json);
-        bTojBtn = (Button) findViewById(R.id.btn_json_btoj);
-        jTobBtn = (Button) findViewById(R.id.btn_json_jtob);
-        inputTv = (TextView) findViewById(R.id.tv_json_input);
-        outputTv = (TextView) findViewById(R.id.tv_json_output);
+        bTojBtn = findViewById(R.id.btn_json_btoj);
+        jTobBtn = findViewById(R.id.btn_json_jtob);
+        inputTv = findViewById(R.id.tv_json_input);
+        outputTv = findViewById(R.id.tv_json_output);
 
         bTojBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class JsonActivity extends CompatBaseActivity {
 
                 inputTv.setText(result);
 
-                String json =  JsonUtil.getInstance().beanToJson(cjb,AddressBean.class);
+                String json =  JsonUtil.getInstance().commonBeanToJson(cjb,AddressBean.class);
                 outputTv.setText("to:\n\n"+json);
             }
         });
@@ -67,7 +67,7 @@ public class JsonActivity extends CompatBaseActivity {
             public void onClick(View v) {
                 String jsonText = "{\"code\":\"1\",\"message\":\"success\",\"data\":{\"street\":\"科技园路.\",\"city\":\"北京\",\"country\":\"中国\"}}";
                 inputTv.setText("from:\n\n"+jsonText);
-                CommonJsonBean<AddressBean> cjb = JsonUtil.getInstance().jsonToBean(jsonText, AddressBean.class);
+                CommonJsonBean<AddressBean> cjb = JsonUtil.getInstance().jsonToCommonBean(jsonText, AddressBean.class);
 
                 StringBuffer result  = new StringBuffer();
                 result.append("code:"+cjb.code+"\n");

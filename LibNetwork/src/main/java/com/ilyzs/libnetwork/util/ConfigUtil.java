@@ -8,5 +8,5 @@ public class ConfigUtil {
     /**
      * Volley , OKHttp,Retrofit
      */
-    public static  String netType = "Volley";
+    public static  String netType = "Retrofit";
 }

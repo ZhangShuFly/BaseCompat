@@ -50,8 +50,8 @@ public class ImageActivity extends CompatBaseActivity {
     @Override
     public void loadView() {
         setContentView(R.layout.activity_image);
-        imageIv = (ImageView)findViewById(R.id.iv_image);
-        imageRv = (RecyclerView)findViewById(R.id.rv_image);
+        imageIv = findViewById(R.id.iv_image);
+        imageRv = findViewById(R.id.rv_image);
         imageRv.setLayoutManager(new LinearLayoutManager(this));
         imageRv.setItemAnimator(new DefaultItemAnimator());
         //添加分割线

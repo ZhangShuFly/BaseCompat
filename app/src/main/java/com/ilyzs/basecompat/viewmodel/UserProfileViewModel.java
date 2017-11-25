@@ -3,7 +3,7 @@ package com.ilyzs.basecompat.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.ilyzs.basecompat.bean.CommonJsonBean;
+import com.ilyzs.basecompat.base.CompatBaseApplication;
 import com.ilyzs.basecompat.bean.User;
 import com.ilyzs.basecompat.repository.UserRepository;
 
@@ -15,23 +15,23 @@ import javax.inject.Inject;
 
 public class UserProfileViewModel extends ViewModel {
 
-    private LiveData<CommonJsonBean<User>> user;
-    private UserRepository repository;
-    private String userId;
+    private LiveData<User> user;
 
     @Inject
-    public UserProfileViewModel(UserRepository repository){
-        this.repository = repository;
+    public UserRepository repository;
+
+    public UserProfileViewModel() {
+        CompatBaseApplication.get().getAppCompontent().sub().inject(this);
     }
 
     public void setUserId(String userId) {
-        if(null!=user){
+        if (null != user) {
             return;
         }
         user = repository.getUser(userId);
     }
 
-    public LiveData<CommonJsonBean<User>> getUser() {
+    public LiveData<User> getUser() {
         return user;
     }
 }

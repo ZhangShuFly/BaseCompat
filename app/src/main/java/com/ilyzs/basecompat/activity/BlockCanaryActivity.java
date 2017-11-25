@@ -34,7 +34,7 @@ public class BlockCanaryActivity extends CompatBaseActivity {
     @Override
     public void loadView() {
         setContentView(R.layout.activity_block_canary);
-        bcTestBtn = (Button) findViewById(R.id.btn_bc_test);
+        bcTestBtn = findViewById(R.id.btn_bc_test);
         bcTestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

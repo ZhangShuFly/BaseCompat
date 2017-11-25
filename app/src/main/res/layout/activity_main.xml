@@ -40,4 +40,12 @@
         android:layout_width="match_parent"
         android:text="Json"
         android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/btn_main_user_profile"
+        android:layout_below="@id/btn_main_json"
+        android:layout_width="match_parent"
+        android:text="Android Architecture Component(dagger 2)"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

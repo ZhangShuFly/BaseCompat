@@ -1,13 +1,15 @@
 package com.ilyzs.basecompat.repository;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.ilyzs.basecompat.bean.CommonJsonBean;
 import com.ilyzs.basecompat.bean.User;
-import com.ilyzs.basecompat.util.CacheUtil;
-import com.ilyzs.basecompat.util.ConfigUtil;
-import com.ilyzs.basecompat.util.JsonUtil;
+import com.ilyzs.basecompat.compontent.DaggerUserRepositoryComponent;
+import com.ilyzs.basecompat.util.CompatDatabase;
+import com.ilyzs.basecompat.util.DBHelper;
+import com.ilyzs.basecompat.util.ThreadPoolHelper;
 import com.ilyzs.libnetwork.util.HttpUtil;
 import com.ilyzs.libnetwork.util.RequestCallback;
 import com.ilyzs.libnetwork.util.RequestParameter;
@@ -16,7 +18,7 @@ import com.ilyzs.libnetwork.util.URLData;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Cache;
+import javax.inject.Inject;
 
 /**
  * Created by zhangshu on 2017/11/19.
@@ -24,45 +26,73 @@ import okhttp3.Cache;
 
 public class UserRepository {
 
-    public LiveData<CommonJsonBean<User>> getUser(final String userId){
-        final MutableLiveData<CommonJsonBean<User>> liveData = new MutableLiveData<>();
+    private CompatDatabase db;
 
-        final URLData urlData = new URLData();
-        urlData.setNetType("get");
-        urlData.setUrl("");
+    @Inject
+    public ThreadPoolHelper threadPoolHelper;
+
+    private UserRepository() {
+
+    }
+
+    public UserRepository(Context context) {
+        db = DBHelper.getInstance(context).getDb();
+        DaggerUserRepositoryComponent.builder(). build().inject(this);
+    }
+
+    public LiveData<User> getUser(final String userId) {
+        LiveData<User> data = db.userDao().load(userId);
+        if(null == data.getValue()){
+            refreshUser(userId);
+        }
+        return data;
+    }
+
+    private void refreshUser(final String userId) {
+        String url = "";
+        URLData urlData = getUrlData(url);
 
         RequestParameter requestParameter = new RequestParameter();
         requestParameter.setName("userId");
         requestParameter.setValue(userId);
 
-        final CacheUtil cacheUtil = new CacheUtil("",1);
-        String cache = cacheUtil.getJsonCache(urlData.getUrl()+"?userId="+userId);
-        if(null!=cache){
-            CommonJsonBean cjb = JsonUtil.getInstance().jsonToBean(cache,User.class);
-            MutableLiveData<CommonJsonBean<User>> liveDataCache = new MutableLiveData<>();
-            liveDataCache.setValue(cjb);
-            return liveDataCache;
-        }
-
         List<RequestParameter> rpList = new ArrayList<>();
         rpList.add(requestParameter);
 
-        HttpUtil.doHttp(null, urlData, rpList, new RequestCallback() {
+        HttpUtil.doHttp(urlData, rpList, new RequestCallback() {
             @Override
             public void onSuccess(String content) {
-                CommonJsonBean cjb = JsonUtil.getInstance().jsonToBean(content,User.class);
-                liveData.setValue(cjb);
+                //CommonJsonBean<User> cjb = JsonUtil.getInstance().jsonToCommonBean(content, User.class);
+                final User user = new User();
+                user.setAge(22);
+                user.setName("ZhangShu");
+                user.setId(1);
+                threadPoolHelper.getExcutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                         db.userDao().save(user);
+                    }
+                });
 
-                cacheUtil.putJsonCache(urlData.getUrl()+"?userId="+userId,content);
+
             }
 
             @Override
             public void onFail(String failMsg) {
-
+                CommonJsonBean<User> cjb = new CommonJsonBean<>();
+                cjb.code = "1";
+                cjb.message = failMsg;
             }
         });
 
-        return liveData;
+    }
+
+    @NonNull
+    private URLData getUrlData(String url) {
+        final URLData urlData = new URLData();
+        urlData.setNetType("get");
+        urlData.setUrl("http://www.weather.com.cn/data/cityinfo/101010100.html");
+        return urlData;
     }
 
 }

@@ -36,10 +36,10 @@ public class MainActivity extends AppBaseActivity {
     @Override
     public void loadView() {
         setContentView(R.layout.activity_main);
-        resultTv = (TextView) findViewById(R.id.main_result_tv);
-        volleyBtn = (Button) findViewById(R.id.main_volley_test_btn);
-        okHttpBtn = (Button)findViewById(R.id.main_okHttp_test_btn);
-        retrofitBtn = (Button)findViewById(R.id.main_retrofit_test_btn);
+        resultTv = findViewById(R.id.main_result_tv);
+        volleyBtn = findViewById(R.id.main_volley_test_btn);
+        okHttpBtn = findViewById(R.id.main_okHttp_test_btn);
+        retrofitBtn = findViewById(R.id.main_retrofit_test_btn);
 
         volleyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
