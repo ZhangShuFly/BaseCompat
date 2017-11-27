@@ -15,15 +15,15 @@
 
         <TextView
             android:id="@+id/tv_json_input"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_weight="1"
-            android:layout_height="400dp" />
+            android:layout_height="@dimen/dp_300" />
 
         <TextView
             android:id="@+id/tv_json_output"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="400dp" />
+            android:layout_height="@dimen/dp_300" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/btn_json_jtob"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/jsontobean"
@@ -41,7 +41,7 @@
 
         <Button
             android:id="@+id/btn_json_btoj"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/beanTojson"

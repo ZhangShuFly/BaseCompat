@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">BaseCompat</string>
-    <string name="glide">glide</string>
-    <string name="leakcanary">leakcanary</string>
-    <string name="blackcanary">blackcanary</string>
+    <string name="glide">Glide</string>
+    <string name="leakcanary">LeakCanary</string>
+    <string name="blackcanary">BlackCanary</string>
     <string name="jsontobean">JsonToBean</string>
     <string name="beanTojson">BeanToJson</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="json">Json</string>
+    <string name="leak_tip">I am normal layout</string>
 
 </resources>

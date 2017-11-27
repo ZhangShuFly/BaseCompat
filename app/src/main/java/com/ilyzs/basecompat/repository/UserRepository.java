@@ -9,6 +9,7 @@ import com.ilyzs.basecompat.bean.User;
 import com.ilyzs.basecompat.compontent.DaggerUserRepositoryComponent;
 import com.ilyzs.basecompat.util.CompatDatabase;
 import com.ilyzs.basecompat.util.DBHelper;
+import com.ilyzs.basecompat.util.JsonHelper;
 import com.ilyzs.basecompat.util.ThreadPoolHelper;
 import com.ilyzs.libnetwork.util.HttpUtil;
 import com.ilyzs.libnetwork.util.RequestCallback;
@@ -30,6 +31,9 @@ public class UserRepository {
 
     @Inject
     public ThreadPoolHelper threadPoolHelper;
+
+    @Inject
+    public JsonHelper jsonHelper;
 
     private UserRepository() {
 
@@ -62,7 +66,7 @@ public class UserRepository {
         HttpUtil.doHttp(urlData, rpList, new RequestCallback() {
             @Override
             public void onSuccess(String content) {
-                //CommonJsonBean<User> cjb = JsonUtil.getInstance().jsonToCommonBean(content, User.class);
+                //CommonJsonBean<User> cjb = jsonHelper.jsonToBean(content, User.class);
                 final User user = new User();
                 user.setAge(22);
                 user.setName("ZhangShu");

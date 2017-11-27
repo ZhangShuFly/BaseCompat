@@ -11,9 +11,23 @@ import com.ilyzs.basecompat.base.CompatBaseActivity;
 import com.ilyzs.basecompat.util.LeakCanaryTest;
 import com.ilyzs.libnetwork.AppBaseActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends CompatBaseActivity {
 
-    private Button glideBtn, leakCanaryBtn, blockCanaryBtn, jsonBtn,accBtn;
+    //Just for test, it does not help;
+    @BindView(R.id.btn_main_glide)
+    Button glideBtn;
+    @BindView(R.id.btn_main_LeakCanary)
+    Button leakCanaryBtn;
+    @BindView(R.id.btn_main_BlockCanary)
+    Button blockCanaryBtn;
+    @BindView(R.id.btn_main_json)
+    Button jsonBtn;
+    @BindView(R.id.btn_main_user_profile)
+    Button accBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,58 +42,44 @@ public class MainActivity extends CompatBaseActivity {
     @Override
     public void loadView() {
         setContentView(R.layout.activity_main);
-
-        glideBtn = findViewById(R.id.btn_main_glide);
-        leakCanaryBtn = findViewById(R.id.btn_main_LeakCanary);
-        blockCanaryBtn = findViewById(R.id.btn_main_BlockCanary);
-        jsonBtn = findViewById(R.id.btn_main_json);
-        accBtn = findViewById(R.id.btn_main_user_profile);
-
-        glideBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ImageActivity.class);
-                startActivity(intent);
-            }
-        });
+        ButterKnife.bind(this);
 
 
-        leakCanaryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LeakCanaryActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        blockCanaryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BlockCanaryActivity.class);
-
-                startActivity(intent);
-            }
-        });
-
-        jsonBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, JsonActivity.class);
-                startActivity(intent);
-            }
-        });
-        accBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     public void loadData() {
 
+    }
+
+    @OnClick(R.id.btn_main_glide)
+    void glideBtnClick() {
+        Intent intent = new Intent(MainActivity.this, ImageActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_main_LeakCanary)
+    void leakCanaryBtnClick() {
+        Intent intent = new Intent(MainActivity.this, LeakCanaryActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_main_BlockCanary)
+    void blockCanaryBtnClick() {
+        Intent intent = new Intent(MainActivity.this, BlockCanaryActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_main_json)
+    void jsonBtnClick() {
+        Intent intent = new Intent(MainActivity.this, JsonActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_main_user_profile)
+    void accBtnClick() {
+        Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+        startActivity(intent);
     }
 
     @Override

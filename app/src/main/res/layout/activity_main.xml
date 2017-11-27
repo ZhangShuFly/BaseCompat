@@ -1,51 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ilyzs.basecompat.activity.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Hello World!"
-         />
 
-    <Button
-        android:id="@+id/btn_main_glide"
+    <LinearLayout
+        android:id="@+id/ll_main_one"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="@string/glide"/>
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_height="@dimen/dp_150"
+        android:orientation="horizontal">
 
 
-    <Button
-        android:layout_below="@id/btn_main_glide"
-        android:id="@+id/btn_main_LeakCanary"
+        <Button
+            android:id="@+id/btn_main_glide"
+            android:background="@color/peru"
+            android:text="@string/glide"
+            style="@style/MainAcitivityBtn"
+             />
+
+
+        <Button
+            android:id="@+id/btn_main_LeakCanary"
+            android:background="@color/sienna"
+            android:text="@string/leakcanary"
+            style="@style/MainAcitivityBtn" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_main_two"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/leakcanary"
-         />
+        android:layout_height="@dimen/x150"
+        android:layout_below="@id/ll_main_one"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_main_BlockCanary"
-        android:layout_below="@id/btn_main_LeakCanary"
+        <Button
+            android:id="@+id/btn_main_BlockCanary"
+            android:background="@color/sienna"
+            android:text="@string/blackcanary"
+            style="@style/MainAcitivityBtn" />
+
+        <Button
+            android:id="@+id/btn_main_json"
+            android:background="@color/peru"
+            android:text="@string/json"
+            style="@style/MainAcitivityBtn" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_main_three"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/blackcanary"/>
+        android:layout_height="@dimen/dp_150"
+        android:layout_below="@id/ll_main_two"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_main_json"
-        android:layout_below="@id/btn_main_BlockCanary"
-        android:layout_width="match_parent"
-        android:text="Json"
-        android:layout_height="wrap_content" />
-
-
-    <Button
-        android:id="@+id/btn_main_user_profile"
-        android:layout_below="@id/btn_main_json"
-        android:layout_width="match_parent"
-        android:text="Android Architecture Component(dagger 2)"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_main_user_profile"
+            style="@style/MainAcitivityBtn"
+            android:layout_below="@id/btn_main_json"
+            android:background="@color/darkolivegreen"
+            android:text="Android Architecture Component(dagger 2)" />
+    </LinearLayout>
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.ilyzs.basecompat.bean;
 
+import java.util.List;
+
 /**
  * Created by zhangshu on 2017/11/18.
  */
@@ -17,4 +19,6 @@ public class CommonJsonBean<T> {
     public String message;
 
     public T data;
+
+    public List<T> dataList;
 }
