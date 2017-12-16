@@ -21,7 +21,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by zhangshu on 2017/11/13.
+ * Created by zhangshu 。
  */
 
 public class CacheUtil {
